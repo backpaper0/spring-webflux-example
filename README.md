@@ -1,4 +1,4 @@
-# Sprint WebFlux Example
+# Spring WebFlux Example
 
 https://backpaper0.github.io/ghosts/reactive/index.html
 

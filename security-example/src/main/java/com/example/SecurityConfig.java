@@ -1,6 +1,7 @@
 package com.example;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.core.userdetails.MapReactiveUserDetailsService;
@@ -12,12 +13,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 
 @EnableWebFluxSecurity
+@EnableReactiveMethodSecurity
 public class SecurityConfig {
 
     @Bean
     public SecurityWebFilterChain springSecurityFilterChain(final ServerHttpSecurity http) {
         http
                 .authorizeExchange()
+                .pathMatchers("/hoge").permitAll()
                 .pathMatchers("/foobar").hasRole("FOOBAR")
                 .anyExchange().authenticated()
                 .and()
@@ -43,7 +46,14 @@ public class SecurityConfig {
                 .passwordEncoder(passwordEncoder()::encode)
                 .build();
 
-        return new MapReactiveUserDetailsService(user, foobar);
+        final UserDetails hoge = User
+                .withUsername("hoge")
+                .password("password")
+                .roles("HOGE")
+                .passwordEncoder(passwordEncoder()::encode)
+                .build();
+
+        return new MapReactiveUserDetailsService(user, foobar, hoge);
     }
 
     @Bean

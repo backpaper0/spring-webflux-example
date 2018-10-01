@@ -73,4 +73,31 @@ class HelloControllerTest {
                 .expectStatus().isOk()
                 .expectBody(String.class).isEqualTo("Hello FooBar(example)");
     }
+
+    @Test
+    void hogeUnauthorized() {
+        client
+                .get().uri("/hoge")
+                .exchange()
+                .expectStatus().isUnauthorized();
+    }
+
+    @Test
+    void hogeForbidden() {
+        client
+                .mutateWith(SecurityMockServerConfigurers.mockUser("example").roles("FOOBAR"))
+                .get().uri("/hoge")
+                .exchange()
+                .expectStatus().isForbidden();
+    }
+
+    @Test
+    void hogeOk() {
+        client
+                .mutateWith(SecurityMockServerConfigurers.mockUser("example").roles("HOGE"))
+                .get().uri("/hoge")
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(String.class).isEqualTo("Hello Method Security");
+    }
 }

@@ -1,6 +1,5 @@
 package com.example.functional;
 
-import static org.springframework.web.reactive.function.server.RequestPredicates.*;
 import static org.springframework.web.reactive.function.server.RouterFunctions.*;
 
 import org.springframework.context.annotation.Bean;
@@ -18,8 +17,10 @@ public class HelloRouter {
     @Bean
     public RouterFunction<ServerResponse> routerFunction() {
         final var handler = handler();
-        return route(GET("/fn/hello"), handler::getHello)
-                .andRoute(POST("/fn/hello"), handler::postHello);
+        return route()
+                .GET("/fn/hello", handler::getHello)
+                .POST("/fn/hello", handler::postHello)
+                .build();
     }
 
     @Bean

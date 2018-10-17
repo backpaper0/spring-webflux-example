@@ -9,7 +9,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.security.test.web.reactive.server.SecurityMockServerConfigurers;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import org.springframework.web.reactive.function.client.ExchangeFilterFunctions;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
@@ -25,7 +24,6 @@ class HelloControllerTest {
                 .bindToApplicationContext(applicationContext)
                 .apply(SecurityMockServerConfigurers.springSecurity())
                 .configureClient()
-                .filter(ExchangeFilterFunctions.basicAuthentication())
                 .build();
     }
 

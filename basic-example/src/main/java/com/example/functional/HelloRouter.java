@@ -27,16 +27,4 @@ public class HelloRouter {
     public HelloHandler handler() {
         return new HelloHandler();
     }
-
-    // ApplicationContextを使わずに実行する例。
-    // これはNettyで動かしている。
-
-    //    public static void main(final String[] args) throws Exception {
-    //        final var hello = new FunctionalHelloHandler();
-    //        final var router = new FunctionalHelloRouter(hello).routerFunction();
-    //        final var handler = RouterFunctions.toHttpHandler(router);
-    //        final var adapter = new ReactorHttpHandlerAdapter(handler);
-    //        HttpServer.create("localhost", 8080).newHandler(adapter).block();
-    //        Thread.sleep(Long.MAX_VALUE);
-    //    }
 }

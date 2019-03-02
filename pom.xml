@@ -20,5 +20,6 @@
 	<modules>
 		<module>basic-example</module>
 		<module>security-example</module>
+		<module>without-application-context-example</module>
 	</modules>
 </project>
